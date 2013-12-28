@@ -13,8 +13,7 @@ if (!class_exists('Social_Twitter_Avatar_Update')) {
 
 load_plugin_textdomain('social-twitter-avatar-update', false, dirname(plugin_basename(__FILE__)).'/languages/');
 
-add_action('admin_init', array('Social_Twitter_Avatar_Update', 'run'));
-
+add_action('admin_init', array('Social_Twitter_Avatar_Update', 'controller'));
 add_filter('plugin_action_links', array('Social_Twitter_Avatar_Update', 'plugin_action_links'), 10, 2);
 
 class Social_Twitter_Avatar_Update {
@@ -22,7 +21,7 @@ class Social_Twitter_Avatar_Update {
 	public static function plugin_action_links($links, $file) {
 		if (basename($file) == basename(__FILE__)) {
 			$nonce = wp_create_nonce('social-twitter-avatar-update');
-			$settings_link = '<a href="plugins.php?social_action=update-twitter-avatars&wp_nonce='.esc_url($nonce).'">'.__('Run', 'social-twitter-avatar-update').'</a>';
+			$settings_link = '<a href="plugins.php?social_action=update-twitter-avatars&wp_nonce='.urlencode($nonce).'">'.__('Run', 'social-twitter-avatar-update').'</a>';
 			array_unshift($links, $settings_link);
 		}
 		return $links;
